@@ -1,0 +1,44 @@
+server:
+  port: 18888
+
+## 设置info 信息
+info:
+  application:
+    name: User Server
+    description: 用户服务中心
+
+## eureka 相关配置
+eureka:
+  instance:
+    ## 是否显示真实ip
+    prefer-ip-address: true
+    hostname: config-server
+
+  client:
+    ## 是否从注册中心获取数据，默认值为true
+    fetch-registry: true
+    ## 是否把自己注册到注册中心，默认值为true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@localhost:18161/eureka/
+
+
+## 日志配置信息
+logging:
+  file: /app/logs/${spring.application.name}
+  level:
+    ROOT: warn
+    org.springframework: info
+    org.springframework.web.servlet.view: info
+    org.springframework.web.servlet.mvc: info
+    io.undertow.request: info
+    com.github.pagehelper: TRACE
+    com.zaxxer.hikari: TRACE
+
+## 暴露所有指标监控信息
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
